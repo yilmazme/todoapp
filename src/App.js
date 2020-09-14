@@ -63,12 +63,33 @@ class App extends React.Component {
     });
   };
   render() {
+    const { todos } = this.state;
+    const notComplited = todos.filter((value) => {
+      return !value.completed;
+    });
+    const complited = todos.filter((value) => {
+      return value.completed;
+    });
+    const count = notComplited.length;
+    const unCount = complited.length;
+
     return (
       <div className="App">
         <h2>To Do App</h2>
         <AddTodo addTodo={this.addTodo} />
+        <h3 style={{ color: "red" }}>
+          {count < 2
+            ? `You have '${count}' to do left.`
+            : `You have '${count}' to do's left.`}
+        </h3>
+        <h3 style={{ color: "green" }}>
+          {unCount < 2
+            ? `You have completed '${unCount}' to do.`
+            : `You have completed '${unCount}' to do's.`}
+        </h3>
+
         <Todos
-          items={this.state.todos}
+          items={todos}
           clearItem={this.clearItem}
           checkItem={this.checkItem}
         />
